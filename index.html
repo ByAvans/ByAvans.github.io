@@ -3422,6 +3422,19 @@
         window.addEventListener('resize', resizeCanvas);
         initParticles();
         animate();
+
+        // Секретная комбинация Shift + E: показать скрытые кнопки и открыть настройки
+        document.addEventListener('keydown', (e) => {
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.target.isContentEditable) return;
+            if (e.shiftKey && !e.ctrlKey && !e.altKey && e.code === 'KeyE') {
+                e.preventDefault();
+                const reveal = (el, disp) => { if (el) el.style.setProperty('display', disp, 'important'); };
+                reveal(document.getElementById('settings-btn'), 'flex');
+                reveal(document.getElementById('calib-minus'), 'inline-block');
+                reveal(document.getElementById('calib-plus'), 'inline-block');
+                openSettings();
+            }
+        });
     </script>
 
 
